@@ -1,0 +1,21 @@
+body {
+  background-color: #aaaaaa;
+}
+
+.navbarContainer {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  flex-flow: row nowrap;
+  justify-items: flex-start;
+  align-items: flex-start;
+}
+
+.navbarItem {
+  width: 8%;
+  background-color: #888888;
+  padding: 1%;
+  text-align: center;
+}
