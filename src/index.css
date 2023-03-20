@@ -1,16 +1,17 @@
 body {
   background-color: #aaaaaa;
+  margin: 0;
 }
 
 .navbarContainer {
   display: flex;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-
   flex-flow: row nowrap;
   justify-items: flex-start;
   align-items: flex-start;
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .navbarItem {
@@ -18,4 +19,20 @@ body {
   background-color: #888888;
   padding: 1%;
   text-align: center;
+}
+
+.formContainer{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-items: center;
+
+  margin: 1% 0;
+  padding: 2%;
+  background-color: #999999;
+}
+
+.formItem{
+  padding: 0.25%;
+  margin: 0.25% 0;
 }
