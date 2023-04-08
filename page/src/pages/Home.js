@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 function SelectCandidateOptions() {
-  let [candidatesArray, setCandidatesArray] = useState([]);
+  const [candidatesArray, setCandidatesArray] = useState([]);
 
   useEffect(() => {
     // Niech wysyła zapytanie tylko kiedy candidatesArray jest pusty
-    if (candidatesArray = []) {
+    if (candidatesArray.length == 0) {
       fetch('http://127.0.0.1:4000/getCandidates')
       .then(res => res.json())
       .then(json => setCandidatesArray(json));
@@ -56,7 +56,7 @@ export default function Home() {
     fetch('http://127.0.0.1:4000/insertVote', postParams);
     alert('Zagłosowano pomyślnie!');
     setFormData(defaultFormData);
-    
+
   }
   
   return (

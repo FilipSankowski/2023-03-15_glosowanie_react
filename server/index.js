@@ -25,7 +25,7 @@ app.listen(port, () => {
 connection.connect();
 
 app.get('/getCandidates', (req, res) => {
-  const queryText = "SELECT * FROM kandydat;";
+  const queryText = 'SELECT * FROM kandydat;';
 
   connection.query(queryText, (error, results, fields) => {
     if (error) throw error;
@@ -42,15 +42,15 @@ app.post('/insertVote', (req, res) => {
   const kandydat_id = req.body.kandydat_id;
 
   const queryText = `INSERT INTO glosujacy (imie, nazwisko, kandydat_id) VALUES ('${imie}', '${nazwisko}', '${kandydat_id}');`;
-  console.log(queryText);
+  //console.log(queryText);
   connection.query(queryText, (error, results, fields) => {
     if (error) throw error;
     res.send('done');
   });
 })
 
-app.get('/selectVotes', (req, res) => {
-  const queryText = `SELECT kandydat.nazwa, COUNT(glosujacy.id_kandydat) as oddaneGlosy FROM kandydat LEFT JOIN glosujacy ON glosujacy.id_kandydat = kandydat.kandydat_id GROUP BY kandydat.nazwa;`
+app.get('/getResult', (req, res) => {
+  const queryText = 'SELECT * FROM glosujacy;';
 
   connection.query(queryText, (error, results, fields) => {
     if (error) throw error;
