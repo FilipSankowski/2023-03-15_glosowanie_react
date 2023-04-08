@@ -43,9 +43,10 @@ app.post('/insertVote', (req, res) => {
 
   const queryText = `INSERT INTO glosujacy (imie, nazwisko, kandydat_id) VALUES ('${imie}', '${nazwisko}', '${kandydat_id}');`;
   console.log(queryText);
-  // connection.query(queryText, (error, results, fields) => {
-  //   if (error) throw error;
-  // });
+  connection.query(queryText, (error, results, fields) => {
+    if (error) throw error;
+    res.send('done');
+  });
 })
 
 app.get('/selectVotes', (req, res) => {
