@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function SelectCandidateOptions(props) {
-  const candidatesArray = props.candidatesArray;
+function SelectCandidateOptions() {
+  let [candidatesArray, setCandidatesArray] = useState([]);
+
+  useEffect(() => {
+    // Niech wysyła zapytanie tylko kiedy candidatesArray jest pusty
+    if (candidatesArray = []) {
+      fetch('http://127.0.0.1:4000/getCandidates')
+      .then(res => res.json())
+      .then(json => setCandidatesArray(json));
+    }
+  }, []);
 
   const optionList = candidatesArray.map((option) => {
-    const optionText = `${option.id}. ${option.name} ${option.surname} - ${option.party}`;
+    const optionText = `${option.kandydat_id}. ${option.nazwa}`;
     return (
-      <option key={option.id} value={option.id}>
+      <option key={option.kandydat_id} value={option.kandydat_id}>
         {optionText}
       </option>
     )
@@ -17,20 +26,11 @@ function SelectCandidateOptions(props) {
 
 export default function Home() {
   const defaultFormData = {
-    name:'',
-    surname:'',
-    candidateId:''
+    imie:'',
+    nazwisko:'',
+    kandydat_id:''
   };
   const [formData, setFormData] = useState(defaultFormData);
-  // TODO: ze serwera
-  const candidatesArray = [
-    {
-      id: '1',
-      name: 'name',
-      surname: 'surname',
-      party: 'party'
-    }
-  ]
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -54,8 +54,8 @@ export default function Home() {
           <label> Podaj imię:<br/>
             <input
               type='text'
-              name='name'
-              value={formData.name || ''}
+              name='imie'
+              value={formData.imie || ''}
               onChange={handleChange}
             />
           </label>
@@ -65,8 +65,8 @@ export default function Home() {
           <label> Podaj nazwisko:<br/>
             <input
               type='text'
-              name='surname'
-              value={formData.surname || ''}
+              name='nazwisko'
+              value={formData.nazwisko || ''}
               onChange={handleChange}
             />
           </label>
@@ -75,12 +75,12 @@ export default function Home() {
         <div className='formItem'>
           <label> Wybierz kandydata:<br/>
             <select
-              name='candidateId'
-              value={formData.candidateId || ''}
+              name='kandydat_id'
+              value={formData.kandydat_id || ''}
               onChange={handleChange}
             >
               <option disabled hidden></option>
-              <SelectCandidateOptions candidatesArray={candidatesArray}/>
+              <SelectCandidateOptions />
             </select>
             
           </label>

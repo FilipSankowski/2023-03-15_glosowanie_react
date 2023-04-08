@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const cors = require("cors");
 const express = require("express");
-const port = 3000;
+const port = 4000;
 
 const app = express();
 app.use(cors());
@@ -23,11 +23,12 @@ sqlConnection();
 function sqlConnection() {
   connection.connect();
 
-  app.get('/selectCandidates', (req, res) => {
-    const queryText = "SELECT * FROM kandydaci;"
+  app.get('/getCandidates', (req, res) => {
+    const queryText = "SELECT * FROM kandydat;";
 
     connection.query(queryText, (error, results, fields) => {
   	  if (error) throw error;
+      console.log(results);
       res.send(results);
     });
 
@@ -38,14 +39,14 @@ function sqlConnection() {
     const nazwisko = req.params.nazwisko;
     const kandydat = req.params.kandydat;
 
-    const queryText = `INSERT INTO glosujacy (imie, nazwisko, id_kandydata) VALUES ('${imie}', '${nazwisko}', '${kandydat}');`;
+    const queryText = `INSERT INTO glosujacy (imie, nazwisko, id_kandydat) VALUES ('${imie}', '${nazwisko}', '${kandydat}');`;
     connection.query(queryText, (error, results, fields) => {
   	  if (error) throw error;
     });
   })
 
   app.get('/selectVotes', (req, res) => {
-    const queryText = `SELECT kandydaci.partia, COUNT(glosujacy.id_kandydata) as oddaneGlosy FROM kandydaci LEFT JOIN glosujacy ON glosujacy.id_kandydata = kandydaci.id GROUP BY kandydaci.partia;`
+    const queryText = `SELECT kandydat.nazwa, COUNT(glosujacy.id_kandydat) as oddaneGlosy FROM kandydat LEFT JOIN glosujacy ON glosujacy.id_kandydat = kandydat.kandydat_id GROUP BY kandydat.nazwa;`
   
     connection.query(queryText, (error, results, fields) => {
   	  if (error) throw error;
