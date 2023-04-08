@@ -42,8 +42,17 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
 
-    console.log('formData: ', formData);
+    // Ważne: bez nagłówka nie zadziała !
+    const postParams = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    };
+    fetch('http://127.0.0.1:4000/insertVote', postParams);
   }
   
   return (
