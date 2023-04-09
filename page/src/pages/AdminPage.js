@@ -1,6 +1,19 @@
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
+
+const ResultContext = createContext();
 
 function ResultReview() {
+  const voteResult = useContext(ResultContext);
+
+  console.log(voteResult);
+}
+
+function ResultChart() {
+  const voteResult = useContext(ResultContext);
+
+}
+
+export default function AdminPage() {
   const [voteResult, setVoteResult] = useState([]);
 
   useEffect(() => {
@@ -9,13 +22,11 @@ function ResultReview() {
       .then(json => setVoteResult(json));
   }, []);
 
-  console.log(voteResult);
-}
-
-export default function AdminPage() {
   return (
     <>
-      <ResultReview />
+      <ResultContext.Provider value={voteResult}>
+        <ResultReview />
+      </ResultContext.Provider>
     </>
   )
 }
