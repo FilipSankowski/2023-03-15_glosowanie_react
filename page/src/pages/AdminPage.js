@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { Doughnut } from "react-chartjs-2"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
-
 const ResultContext = createContext();
+
 
 function ResultReview() {
   const voteResult = useContext(ResultContext);
@@ -22,6 +21,8 @@ function ResultReview() {
       } else {
         voterData = {...voterData, [name]:[text]};
       }
+
+      return true;
     })
   }
   catch (err) {
@@ -35,6 +36,7 @@ function ResultReview() {
     const list = voterData[partia].map((name, index) => {
       return (<li key={index}>{name}</li>)
     });
+
     // Dodanie nagłówka i zapisanie do voterLists
     voterLists.push(
       <div key={partia} className="voterListItem">
@@ -50,6 +52,7 @@ function ResultReview() {
 }
 
 function ResultChart() {
+  ChartJS.register(ArcElement, Tooltip, Legend);
   const voteResult = useContext(ResultContext);
   const chartData = {
     labels: [],
@@ -64,9 +67,8 @@ function ResultChart() {
       ]
     }]
   }
-  ChartJS.register(ArcElement, Tooltip, Legend);
 
-  // Sprawdzi czy dane nie są undefined
+  // Sprawdzi czy dane nie są 'undefined'
   if (voteResult.amount) {
 
     // Doda dane do chartData tak, aby można je było wyświetlić na wykresie
@@ -74,7 +76,6 @@ function ResultChart() {
       (chartData.labels).push(amountData.nazwa);
       (chartData.datasets[0].data).push(amountData.ilosc);
     }
-    //console.log(chartData);
 
     return (
       <>
@@ -89,6 +90,7 @@ function ResultChart() {
 export default function AdminPage() {
   const [voteResult, setVoteResult] = useState([]);
 
+  // Zebranie wyników wyborów z serwera
   useEffect(() => {
     fetch('http://127.0.0.1:4000/getResult')
       .then(res => res.json())
@@ -99,6 +101,7 @@ export default function AdminPage() {
     <>
       <ResultContext.Provider value={voteResult}>
         <div className="voterListContainer">
+          <div className="voterHeader">Głosy na poszczególne partie:</div>
           <ResultReview />
         </div>
         <div className="chartContainer">

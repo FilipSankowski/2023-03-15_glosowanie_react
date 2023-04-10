@@ -43,8 +43,15 @@ body {
   justify-content: center;
 
   margin: 1% 0;
-  padding: 2%;
+  padding: 1% 2%;
   background-color: #999999;
+}
+
+.voterHeader {
+  width: 100%;
+  font-size: medium;
+  font-weight: bold;
+  padding: 0 0 1% 0;
 }
 
 .voterListItem {

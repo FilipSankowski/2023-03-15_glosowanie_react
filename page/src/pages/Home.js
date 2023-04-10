@@ -5,13 +5,15 @@ function SelectCandidateOptions() {
 
   useEffect(() => {
     // Niech wysyła zapytanie tylko kiedy candidatesArray jest pusty
-    if (candidatesArray.length == 0) {
+    // Pyta serwer o listę kandydatów do wyborów
+    if (candidatesArray.length === 0) {
       fetch('http://127.0.0.1:4000/getCandidates')
       .then(res => res.json())
       .then(json => setCandidatesArray(json));
     }
-  }, []);
+  }, [candidatesArray.length]);
 
+  // Zapisuje nazwy kandydatów jako opcje pola select (html)
   const optionList = candidatesArray.map((option) => {
     const optionText = `${option.kandydat_id}. ${option.nazwa}`;
     return (
@@ -53,12 +55,14 @@ export default function Home() {
       body: JSON.stringify(formData)
     };
 
+    // Wysyła zapytanie na serwer, z danymi głosowania w parametrach post, aby dodać nowy głos do bazy danych
     fetch('http://127.0.0.1:4000/insertVote', postParams);
     alert('Zagłosowano pomyślnie!');
     setFormData(defaultFormData);
 
   }
   
+  // Zwraca na stronie formularz do wypełnienia
   return (
     <>
       <div className='formContainer'>

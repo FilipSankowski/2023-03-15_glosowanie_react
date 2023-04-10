@@ -24,16 +24,17 @@ app.listen(port, () => {
 
 connection.connect();
 
+// Zwróci wszystkich kandydatów głosowania, wraz z id
 app.get('/getCandidates', (req, res) => {
   const queryText = 'SELECT * FROM kandydat;';
   connection.query(queryText, (error, results, fields) => {
     if (error) throw error;
-    //console.log(results);
     res.send(results);
   });
 
 });
 
+// Wstawi do bazy nowy głos na określonego kandydata. Parametry otrzyma w parametrach zapytania post
 app.post('/insertVote', (req, res) => {
   const imie = req.body.imie;
   const nazwisko = req.body.nazwisko;
@@ -46,6 +47,9 @@ app.post('/insertVote', (req, res) => {
   });
 })
 
+// Zwróci wyniki głosowania jako obiekt: 
+// .voters - zawierać będzie imię i nazwisko głosującego, oraz nazwę partii na jaką głosował
+// .amount - zawierać będzie nazwę partii, oraz łączną ilość głosów na nich oddaną
 app.get('/getResult', (req, res) => {
   const resultData = {
     voters:[], // nazwa (partii), imie, nazwisko
