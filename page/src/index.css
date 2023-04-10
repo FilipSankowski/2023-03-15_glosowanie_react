@@ -36,3 +36,24 @@ body {
   padding: 0.25%;
   margin: 0.25% 0;
 }
+
+.voterListContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  margin: 1% 0;
+  padding: 2%;
+  background-color: #999999;
+}
+
+.voterListItem {
+  width: 16%;
+  padding: 1%;
+  margin: 1%;
+  background-color: #888888;
+}
+
+.voterListHeader {
+  font-weight: bold;
+}

@@ -35,8 +35,8 @@ function ResultReview() {
     });
     // Dodanie nagłówka i zapisanie do voterLists
     voterLists.push(
-      <div key={partia}>
-        <span>{partia}</span>
+      <div key={partia} className="voterListItem">
+        <span className="voterListHeader">{partia}</span>
         <ol>
           {list}
         </ol>
@@ -64,7 +64,9 @@ export default function AdminPage() {
   return (
     <>
       <ResultContext.Provider value={voteResult}>
-        <ResultReview />
+        <div className="voterListContainer">
+          <ResultReview />
+        </div>
       </ResultContext.Provider>
     </>
   )
