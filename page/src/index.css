@@ -48,7 +48,7 @@ body {
 }
 
 .voterListItem {
-  width: 16%;
+  width: 21%;
   padding: 1%;
   margin: 1%;
   background-color: #888888;
@@ -56,4 +56,14 @@ body {
 
 .voterListHeader {
   font-weight: bold;
+}
+
+.chartContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  margin: 1% 0;
+  padding: 2%;
+  background-color: #999999;
 }

@@ -67,6 +67,9 @@ export default function AdminPage() {
         <div className="voterListContainer">
           <ResultReview />
         </div>
+        <div className="chartContainer">
+          <ResultChart />
+        </div>
       </ResultContext.Provider>
     </>
   )
