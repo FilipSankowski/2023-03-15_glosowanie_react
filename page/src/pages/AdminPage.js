@@ -1,4 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { Doughnut } from "react-chartjs-2"
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
 
 const ResultContext = createContext();
 
@@ -20,10 +23,9 @@ function ResultReview() {
         voterData = {...voterData, [name]:[text]};
       }
     })
-    //console.log(voterData);
   }
   catch (err) {
-    //console.log(err);
+
   }
 
   // Dane z voterData zapisze jako numerowane listy, które następnie zapisze do voterLists
@@ -49,7 +51,39 @@ function ResultReview() {
 
 function ResultChart() {
   const voteResult = useContext(ResultContext);
+  const chartData = {
+    labels: [],
+    datasets: [{
+      label: 'Ilość głosów',
+      data: [],
+      // TODO: Te kolory powinny się dodawać dynamicznie lub losowo, bo dodanie kolejnego kandydata do bazy sprawi, że diagram strzeli
+      backgroundColor: [
+        '#cc0000',
+        '#00cc00',
+        '#0000cc'
+      ]
+    }]
+  }
+  ChartJS.register(ArcElement, Tooltip, Legend);
 
+  // Sprawdzi czy dane nie są undefined
+  if (voteResult.amount) {
+
+    // Doda dane do chartData tak, aby można je było wyświetlić na wykresie
+    for (const amountData of voteResult.amount) {
+      (chartData.labels).push(amountData.nazwa);
+      (chartData.datasets[0].data).push(amountData.ilosc);
+    }
+    //console.log(chartData);
+
+    return (
+      <>
+        <Doughnut data={chartData} />
+      </>
+    )
+  } else {
+    console.log("amount undefined");
+  }
 }
 
 export default function AdminPage() {
